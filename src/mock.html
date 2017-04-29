@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="mock.css">
+    <title>React App</title>
+  </head>
+  <body>
+
+    <nav class="pure-menu pure-menu-horizontal">
+        <a href="#" class="pure-menu-heading pure-menu-link">TODOIST CLONE</a>
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="pure-g outermost">
+        <div class="pure-u-1-4"></div>
+        <div class="pure-u-1-6 leftbar">
+            <h2>Projects</h2>
+
+            <div class="pure-menu custom-restricted-width">
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">App</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Meal Reviews</a></li>
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link">Add Project</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pure-u-1-3 centercontent">
+
+            <h2> React Practice </h2>
+
+            <div class="todo-item">
+                Basic user creation
+                <span class="item-label medium-priority">In Progress</span>
+            </div>
+            <div class="todo-item todo-indent-2 done-todo-item">
+                Create sign up page
+                <span class="item-label done-label">Done</span>
+                <span class="item-label done-label">Do Tomorrow</span>
+            </div>
+            <div class="todo-item todo-indent-2">
+                Create a database to store users
+                <span class="item-label medium-priority">In Progress</span>
+                <span class="item-label high-priority">Do Today</span>
+            </div>
+            <div class="todo-item todo-indent-2">
+                Create controller
+                <span class="item-label low-priority">Not started</span>
+                <span class="item-label high-priority">Do Today</span>
+                <span class="item-label low-priority">Due Friday</span>
+            </div>
+
+            <div class="todo-item">
+                All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on
+                <span class="item-label medium-priority">In Progress</span>
+            </div>
+            <div class="todo-item todo-indent-2 done-todo-item">
+                Create sign up page
+                <span class="item-label done-label">Done</span>
+                <span class="item-label done-label">Do Tomorrow</span>
+            </div>
+            <div class="todo-item todo-indent-2">
+                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum
+                <span class="item-label medium-priority">In Progress</span>
+                <span class="item-label high-priority">Do Today</span>
+            </div>
+            <div class="todo-item todo-indent-2">
+                Create controller
+                <span class="item-label low-priority">Not started</span>
+                <span class="item-label high-priority">Do Today</span>
+                <span class="item-label low-priority">Due Friday</span>
+            </div>
+
+            <form class="pure-form pure-form-aligned todo-indent-2">
+                <fieldset>
+                    
+                    <legend>Edit Task</legend>
+
+                    <div class="pure-control-group">
+                        <label for="desc-text-area">Description</label>
+                        <input type="text" placeholder="Task description">                        
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="state">State</label>
+                        <select id="state">
+                            <option>Not Started</option>
+                            <option>Blocked</option>
+                            <option>In Progress</option>
+                            <option>Done</option>
+                        </select>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="due-field">Due</label> 
+                        <input id="due-field" type="date">
+                    </div>
+
+                    <div class="pure-control-group">
+                        <label for="schedule-field">Schedule for</label>
+                        <input id="schedule-field" type="date">
+                    </div>
+
+                    <div class="pure-controls">
+                        <button type="submit" class="pure-button pure-button-primary">OK</button>
+                        <button type="submit" class="pure-button">Cancel</button>
+                        <button type="submit" class="pure-button">Delete</button>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="button-panel">
+                <button class="pure-button">Add Task</button>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
