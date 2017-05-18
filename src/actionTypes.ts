@@ -15,6 +15,7 @@ export interface Project {
 
 export interface TodoItem {
     id: string;
+    projectID : string;
     createdAt: Date;
     lastUpdated: Date;
     title: string;
@@ -42,60 +43,88 @@ export function getInitialState(): StoreState {
     };
 } 
 
+
+
+export const ADD_TASK = "ADD_TASK";
+export type ADD_TASK = typeof ADD_TASK;
+
+export const REMOVE_TASK = "REMOVE_TASK";
+export type REMOVE_TASK = typeof REMOVE_TASK;
+
+export const UPDATE_TASK = "UPDATE_TASK";
+export type UPDATE_TASK = typeof UPDATE_TASK;
+
 export interface Action {
-    type :string
+    type :string;
 }
 
-const ADD_TASK = "ADD_TASK";
-const REMOVE_TASK = "REMOVE_TASK";
-const UPDATE_TASK = "UPDATE_TASK";
+export interface AddTaskAction extends Action {
+    todoItem: TodoItem;
+}
 
-export function addTaskAction(task) {
+export interface RemoveTaskAction extends Action {
+    todoItemID: string;
+}
+
+export interface UpdateTaskAction extends Action {
+    todoItem: TodoItem;
+}
+
+export type TaskAction = AddTaskAction | RemoveTaskAction | UpdateTaskAction;
+
+export function addTaskAction(task : TodoItem) : AddTaskAction {
     return {
         type: ADD_TASK,
-        task
+        todoItem: task
     };
 } 
 
-export function removeTaskAction(taskID) {
+export function removeTaskAction(taskID : string) : RemoveTaskAction {
     return {
         type: REMOVE_TASK,
-        taskID
+        todoItemID: taskID
     };
 }
 
-export function updateTaskAction(task) {
+export function updateTaskAction(task : TodoItem) : UpdateTaskAction {
     return {
         type: UPDATE_TASK,
-        task
+        todoItem: task
     };
 }
 
-export function appReducer(state = initialState, action) {
+export function appReducer(state : StoreState = getInitialState(), action : TaskAction) : StoreState {
     switch (action.type) {
         case ADD_TASK:
-            return addTaskReducer(state, action);
+            return reduceAddTask(state, action as AddTaskAction);
         default:
             return state;
     }
 }
 
-function addTaskReducer(state, action) {
-    let newTask = Object.assign({}, action.task, {
+function reduceAddTask(state : StoreState, action : AddTaskAction) : StoreState {
+
+    const newTodoItem = Object.assign({}, action.todoItem, {
         id: newUUID()
     });
-    let newTasks = {};
-    newTasks[newTask.id] = newTask;
+    const newTodoItems = new Map<string, TodoItem>(state.todoItems);
+    newTodoItems.set(newTodoItem.id, newTodoItem);
 
-    let newTodoItems = object.assign({}, state.todoItems, newTasks);
-    return object.assign({}, state, {
+    const newProjects :  Map<string, Project> = new Map<string, Project>(state.projects);
+    let project : Project = newProjects.get(newTodoItem.projectID) as Project;
+    let newTaskIDs : string[] = [...project.todoItemIDs, newTodoItem.id];
+    let newProject : Project = Object.assign({}, project, { todoItemIDs : newTaskIDs });
+    newProjects[project.id] = newProject;
+
+    return Object.assign({}, state, {
+        projects: newProjects,
         todoItems: newTodoItems
     });
 }
 
-var todoIDs = 0;
+var todoIDs : number = 0;
 
 function newUUID() {
     todoIDs++;
-    return todoIDs;
+    return todoIDs.toString();
 }
