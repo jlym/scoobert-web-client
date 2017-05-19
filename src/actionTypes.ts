@@ -15,7 +15,7 @@ export interface Project {
 
 export interface TodoItem {
     id: string;
-    projectID : string;
+    projectID: string;
     createdAt: Date;
     lastUpdated: Date;
     title: string;
@@ -25,12 +25,12 @@ export interface TodoItem {
 }
 
 export function getInitialState(): StoreState {
-    const project :Project = {
-        id: "a0300525-dbfb-485c-af54-727948e664e8",
-        name: "default",
-        states: ["Not Started", "In Progress", "Blocked", "Done"],
-        startingState: "Not Started",
-        endingState: "Done",
+    const project: Project = {
+        id: 'a0300525-dbfb-485c-af54-727948e664e8',
+        name: 'default',
+        states: ['Not Started', 'In Progress', 'Blocked', 'Done'],
+        startingState: 'Not Started',
+        endingState: 'Done',
         todoItemIDs: []
     };
 
@@ -41,21 +41,19 @@ export function getInitialState(): StoreState {
         projects: projects,
         todoItems: new Map<string, TodoItem>()
     };
-} 
+}
 
-
-
-export const ADD_TASK = "ADD_TASK";
+export const ADD_TASK = 'ADD_TASK';
 export type ADD_TASK = typeof ADD_TASK;
 
-export const REMOVE_TASK = "REMOVE_TASK";
+export const REMOVE_TASK = 'REMOVE_TASK';
 export type REMOVE_TASK = typeof REMOVE_TASK;
 
-export const UPDATE_TASK = "UPDATE_TASK";
+export const UPDATE_TASK = 'UPDATE_TASK';
 export type UPDATE_TASK = typeof UPDATE_TASK;
 
 export interface Action {
-    type :string;
+    type: string;
 }
 
 export interface AddTaskAction extends Action {
@@ -72,28 +70,28 @@ export interface UpdateTaskAction extends Action {
 
 export type TaskAction = AddTaskAction | RemoveTaskAction | UpdateTaskAction;
 
-export function addTaskAction(task : TodoItem) : AddTaskAction {
+export function addTaskAction(task: TodoItem): AddTaskAction {
     return {
         type: ADD_TASK,
         todoItem: task
     };
-} 
+}
 
-export function removeTaskAction(taskID : string) : RemoveTaskAction {
+export function removeTaskAction(taskID: string): RemoveTaskAction {
     return {
         type: REMOVE_TASK,
         todoItemID: taskID
     };
 }
 
-export function updateTaskAction(task : TodoItem) : UpdateTaskAction {
+export function updateTaskAction(task: TodoItem): UpdateTaskAction {
     return {
         type: UPDATE_TASK,
         todoItem: task
     };
 }
 
-export function appReducer(state : StoreState = getInitialState(), action : TaskAction) : StoreState {
+export function appReducer(state: StoreState = getInitialState(), action: TaskAction): StoreState {
     switch (action.type) {
         case ADD_TASK:
             return reduceAddTask(state, action as AddTaskAction);
@@ -102,7 +100,7 @@ export function appReducer(state : StoreState = getInitialState(), action : Task
     }
 }
 
-function reduceAddTask(state : StoreState, action : AddTaskAction) : StoreState {
+function reduceAddTask(state: StoreState, action: AddTaskAction): StoreState {
 
     const newTodoItem = Object.assign({}, action.todoItem, {
         id: newUUID()
@@ -110,10 +108,10 @@ function reduceAddTask(state : StoreState, action : AddTaskAction) : StoreState 
     const newTodoItems = new Map<string, TodoItem>(state.todoItems);
     newTodoItems.set(newTodoItem.id, newTodoItem);
 
-    const newProjects :  Map<string, Project> = new Map<string, Project>(state.projects);
-    let project : Project = newProjects.get(newTodoItem.projectID) as Project;
-    let newTaskIDs : string[] = [...project.todoItemIDs, newTodoItem.id];
-    let newProject : Project = Object.assign({}, project, { todoItemIDs : newTaskIDs });
+    const newProjects: Map<string, Project> = new Map<string, Project>(state.projects);
+    let project: Project = newProjects.get(newTodoItem.projectID) as Project;
+    let newTaskIDs: string[] = [...project.todoItemIDs, newTodoItem.id];
+    let newProject: Project = Object.assign({}, project, { todoItemIDs: newTaskIDs });
     newProjects[project.id] = newProject;
 
     return Object.assign({}, state, {
@@ -122,7 +120,7 @@ function reduceAddTask(state : StoreState, action : AddTaskAction) : StoreState 
     });
 }
 
-var todoIDs : number = 0;
+var todoIDs: number = 0;
 
 function newUUID() {
     todoIDs++;
