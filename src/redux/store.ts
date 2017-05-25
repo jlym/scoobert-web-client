@@ -1,3 +1,6 @@
+///<reference path='../../node_modules/immutable/dist/immutable.d.ts'/> 
+
+import { List, Map } from 'immutable';
 
 export interface StoreState {
     projects: Map<string, Project>;
@@ -7,10 +10,10 @@ export interface StoreState {
 export interface Project {
     id: string;
     name: string;
-    states: string[];
+    states: List<string>;
     startingState: string;
     endingState: string;
-    todoItemIDs: string[];
+    todoItemIDs: List<string>;
 }
 
 export interface TodoItem {
@@ -28,17 +31,14 @@ export function getInitialState(): StoreState {
     const project: Project = {
         id: 'a0300525-dbfb-485c-af54-727948e664e8',
         name: 'default',
-        states: ['Not Started', 'In Progress', 'Blocked', 'Done'],
+        states: List<string>(['Not Started', 'In Progress', 'Blocked', 'Done']),
         startingState: 'Not Started',
         endingState: 'Done',
-        todoItemIDs: []
+        todoItemIDs:  List<string>()
     };
 
-    const projects: Map<string, Project> = new Map<string, Project>();
-    projects.set(project.id, project);
-
     return {
-        projects: projects,
-        todoItems: new Map<string, TodoItem>()
+        projects: Map<string, Project>({[project.id]: project}),
+        todoItems: Map<string, TodoItem>()
     };
 }

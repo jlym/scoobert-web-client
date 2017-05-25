@@ -8,13 +8,24 @@ export const UPDATE_TASK = 'UPDATE_TASK';
 // Action creators
 
 export interface AddTaskAction extends Action {
-    todoItem: store.TodoItem;
+    data: AddTaskData;
+    projectID: string;
 }
 
-export function addTaskAction(task: store.TodoItem): AddTaskAction {
+export interface AddTaskData {
+    createdAt: Date;
+    lastUpdated: Date;
+    title: string;
+    state: string;
+    startWorkDate: Date;
+    dueDate: Date;
+}
+
+export function addTaskAction(data: AddTaskData, projectID: string): AddTaskAction {
     return {
-        type: ADD_TASK,
-        todoItem: task
+        type: ADD_TASK,        
+        data: data,
+        projectID: projectID
     };
 }
 
@@ -46,6 +57,10 @@ export function reducer(state: store.StoreState = store.getInitialState(), actio
     switch (action.type) {
         case ADD_TASK:
             return reduceAddTask(state, action as AddTaskAction);
+        case REMOVE_TASK:
+            return reduceRemoveTask(state, action as RemoveTaskAction);
+        case UPDATE_TASK:
+            return reduceUpdateTask(state, action as UpdateTaskAction);
         default:
             return state;
     }
@@ -53,22 +68,57 @@ export function reducer(state: store.StoreState = store.getInitialState(), actio
 
 function reduceAddTask(state: store.StoreState, action: AddTaskAction): store.StoreState {
 
-    const newTodoItem = Object.assign({}, action.todoItem, {
-        id: newUUID()
-    });
-    const newTodoItems = new Map<string, store.TodoItem>(state.todoItems);
-    newTodoItems.set(newTodoItem.id, newTodoItem);
+    const todoItem: store.TodoItem = {...action.data, id: newUUID(), projectID: action.projectID};   
 
-    const newProjects: Map<string, store.Project> = new Map<string, store.Project>(state.projects);
-    let project: store.Project = newProjects.get(newTodoItem.projectID) as store.Project;
-    let newTaskIDs: string[] = [...project.todoItemIDs, newTodoItem.id];
-    let newProject: store.Project = Object.assign({}, project, { todoItemIDs: newTaskIDs });
-    newProjects[project.id] = newProject;
+    const project: store.Project = state.projects.get(todoItem.projectID) as store.Project;
+    const newTaskIDs = project.todoItemIDs.push(todoItem.id);
+    const newProject: store.Project = Object.assign({}, project, { todoItemIDs: newTaskIDs });
 
-    return Object.assign({}, state, {
+    return {
+        ...state, 
+        projects: state.projects.set(project.id, newProject),
+        todoItems: state.todoItems.set(todoItem.id, todoItem)
+    };
+}
+
+function reduceRemoveTask(state: store.StoreState, action: RemoveTaskAction): store.StoreState {
+
+    const todoID = action.todoItemID;
+
+    if (!state.todoItems.has(todoID)) {
+        return state;
+    }
+
+    const todoItem = state.todoItems.get(todoID);
+    const projectID = todoItem.projectID;
+
+    let newProjects = state.projects;
+    if (state.projects.has(projectID)) {
+        const project = state.projects.get(projectID);
+        const todoItemIndex: number = project.todoItemIDs.indexOf(todoID);
+        if (todoItemIndex !== -1) {
+            const newProject = {...project, todoItemIDs: project.todoItemIDs.delete(todoItemIndex)};
+            newProjects = newProjects.set(project.id, newProject);
+        }        
+    }
+            
+    return {
+        ...state, 
         projects: newProjects,
-        todoItems: newTodoItems
-    });
+        todoItems: state.todoItems.deleteIn([todoID])
+    };
+}
+
+function reduceUpdateTask(state: store.StoreState, action: UpdateTaskAction): store.StoreState {
+    const todoID = action.todoItem.id;
+    if (!state.todoItems.has(todoID)) {
+        return state;
+    }
+
+    return {
+        ...state,
+        todoItems:  state.todoItems.set(todoID, action.todoItem)
+    };    
 }
 
 var todoIDs: number = 0;
