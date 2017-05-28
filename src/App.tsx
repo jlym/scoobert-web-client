@@ -4,7 +4,7 @@ import './App.css';
 class App extends React.Component<{}, null> {
   render() {
     return (
-      <div id="app-root">
+      <div className="app">
           <nav className="pure-menu pure-menu-horizontal">
               <a href="#" className="pure-menu-heading pure-menu-link">TODOIST CLONE</a>
               <ul className="pure-menu-list">
