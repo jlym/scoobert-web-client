@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as StateLabel from './stateLabel';
 import * as DueDateLabel from './dueDateLabel';
+import * as StartDateLabel from './startDateLabel';
 import * as Theme from './theme';
 
 export interface Props {
@@ -43,10 +44,15 @@ export const Component: React.SFC<Props> = (props) => {
         <div className="todo-item" style={textStyle}>
             {props.task.title}
             <StateLabel.Component {...props}/>
+            <StartDateLabel.Component 
+                startDate={props.task.startWorkDate}
+                now={props.now}
+                done={taskInFinalState}/>
             <DueDateLabel.Component 
                 dueDate={props.task.dueDate}
                 now={props.now}
                 done={taskInFinalState}/>
+
         </div>
     );
 };
