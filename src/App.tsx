@@ -66,9 +66,9 @@ class App extends React.Component<{}, null> {
 
                 <h2> React Practice </h2>
                 
-                <TaskListItem.TaskListItemComponent {...taskProps}/>
-                <TaskListItem.TaskListItemComponent {...taskProps2}/>
-                <TaskListItem.TaskListItemComponent {...taskProps3}/>
+                <TaskListItem.Component {...taskProps}/>
+                <TaskListItem.Component {...taskProps2}/>
+                <TaskListItem.Component {...taskProps3}/>
 
                 <div className="todo-item">
                     Basic user creation

@@ -22,7 +22,7 @@ export const calcDiffInDays = (date1: Date, date2: Date): number => {
     return Math.floor((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
 };
 
-export const TaskListItemComponent: React.SFC<Props> = (props) => {
+export const Component: React.SFC<Props> = (props) => {
 
     // const taskInInitialState = props.task.state === props.projectStates[0];
     const taskInFinalState = props.task.state === props.projectStates[props.projectStates.length - 1];          
@@ -42,7 +42,7 @@ export const TaskListItemComponent: React.SFC<Props> = (props) => {
     return (
         <div className="todo-item" style={textStyle}>
             {props.task.title}
-            <StateLabel.StateLabelComponent {...props}/>
+            <StateLabel.Component {...props}/>
             <DueDateLabel.Component 
                 dueDate={props.task.dueDate}
                 now={props.now}

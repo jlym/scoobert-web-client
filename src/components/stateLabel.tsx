@@ -16,7 +16,7 @@ export interface Task {
     dueDate?: Date;
 }
 
-export class StateLabelComponent extends React.Component<Props, {}> {
+export class Component extends React.Component<Props, {}> {
     render() {
         const isFirstState = this.props.task.state === this.props.projectStates[0];
         const isFinalState = this.props.task.state === this.props.projectStates[this.props.projectStates.length - 1];
