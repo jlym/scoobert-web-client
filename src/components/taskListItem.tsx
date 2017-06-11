@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as StateLabel from './stateLabel';
 import * as DueDateLabel from './dueDateLabel';
+import * as StartDateLabel from './startDateLabel';
 import * as Theme from './theme';
 
 export interface Props {
@@ -24,7 +25,6 @@ export const calcDiffInDays = (date1: Date, date2: Date): number => {
 
 export const Component: React.SFC<Props> = (props) => {
 
-    // const taskInInitialState = props.task.state === props.projectStates[0];
     const taskInFinalState = props.task.state === props.projectStates[props.projectStates.length - 1];          
 
     let textStyle;
@@ -43,6 +43,10 @@ export const Component: React.SFC<Props> = (props) => {
         <div className="todo-item" style={textStyle}>
             {props.task.title}
             <StateLabel.Component {...props}/>
+            <StartDateLabel.Component 
+                startDate={props.task.startWorkDate}
+                now={props.now}
+                done={taskInFinalState}/>
             <DueDateLabel.Component 
                 dueDate={props.task.dueDate}
                 now={props.now}
