@@ -1,13 +1,11 @@
 import * as React from 'react';
+import * as Theme from './theme';
 
 export interface Props {
     dueDate?: Date;
     now: Date;
     done: boolean;
 }
-
-const black = 'rgb(0, 0, 0)';
-const white = 'rgb(255, 255, 255)';
 
 const getDaysBetween = function(now: Date, dueDate: Date): number {
     const msToStartOfToday = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
@@ -29,33 +27,23 @@ const getLabelText = function(now: Date, dueDate: Date, daysBetween: number): st
     }
 };
 
-export class DueDateLabelComponent extends React.Component<Props, {}> {
-  render() {
-    let dueLabel = null;
+export class Component extends React.Component<Props, {}> {
+    render() {
+        let dueLabel = null;
 
-    if (!this.props.done && this.props.dueDate) {     
+        if (!this.props.done && this.props.dueDate) {     
 
-        const days = getDaysBetween(this.props.now, this.props.dueDate as Date);
-        const urgent = days <= 1;
+            const days = getDaysBetween(this.props.now, this.props.dueDate as Date);
+            const urgent = days <= 1;    
+            const style = 
+                urgent ? 
+                Theme.highPriorityLabelStyle : 
+                Theme.normalPriorityLabelStyle;
         
-        const color = urgent ? white : black;
-        const backgroundColor = urgent ? black : white;        
-        const borderColor = color;
+            const text = getLabelText(this.props.now, this.props.dueDate as Date, days);
+            dueLabel = <span className="item-label medium-priority" style={style}>{text}</span>;
+        }
 
-        const style = {
-            color,
-            backgroundColor,
-            borderColor,
-            borderStyle: 'solid',
-            borderWidth: '1px'
-        };    
-        
-        const text = getLabelText(this.props.now, this.props.dueDate as Date, days);
-        dueLabel = <span className="item-label medium-priority" style={style}>{text}</span>;
+        return dueLabel;
     }
-
-    return (
-        dueLabel
-    );
-  }
 }

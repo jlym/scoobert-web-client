@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as StateLabel from './stateLabel';
 import * as DueDateLabel from './dueDateLabel';
+import * as Theme from './theme';
 
 export interface Props {
     task: Task;
@@ -23,46 +24,29 @@ export const calcDiffInDays = (date1: Date, date2: Date): number => {
 
 export const TaskListItemComponent: React.SFC<Props> = (props) => {
 
-    /*
-    let stateLabel = null;
-    const isFinalState = props.task.state !== props.projectStates[props.projectStates.length - 1];
+    // const taskInInitialState = props.task.state === props.projectStates[0];
+    const taskInFinalState = props.task.state === props.projectStates[props.projectStates.length - 1];          
 
-    if (props.task.state !== props.projectStates[0]) {        
-        const color = isFinalState ? grey : white;
-        const backgroundColor = isFinalState ? white : grey;
-        const border = isFinalState ? '1px solid rgb(150, 150, 150)' : '';
-        let style = {
-            color: color,
-            backgroundColor: backgroundColor,
-            border: border
-        };    
-        
-        stateLabel = <span className="item-label medium-priority" style={style}>{props.task.state}</span>;
+    let textStyle;
+    if (taskInFinalState) {
+        textStyle = {
+            color: Theme.lowPriorityTextColor,
+            textDecoration: 'line-through'
+        };
+    } else {
+        textStyle = {
+            color: Theme.normalPriorityTextColor
+        };
     }
-
-    if (props.task.dueDate) {
-
-    }   
-
-    const diffInDays = calcDiffInDays(props.task.dueDate, props.now);
-    if (diffInDays === 0) {
-
-    } 
-    else if diffInDays === 1 {
-
-    }
-*/
-
-    const dueDateLabelProps: DueDateLabel.Props = {
-        dueDate: props.task.dueDate,
-        now: props.now,
-        done: props.task.state === props.projectStates[props.projectStates.length - 1]
-    };
+    
     return (
-        <div className="todo-item">
+        <div className="todo-item" style={textStyle}>
             {props.task.title}
             <StateLabel.StateLabelComponent {...props}/>
-            <DueDateLabel.DueDateLabelComponent {...dueDateLabelProps}/>
+            <DueDateLabel.Component 
+                dueDate={props.task.dueDate}
+                now={props.now}
+                done={taskInFinalState}/>
         </div>
     );
 };
