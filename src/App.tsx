@@ -52,7 +52,7 @@ class App extends React.Component<{}, null> {
     return (
       <div className="app">
           <nav className="pure-menu pure-menu-horizontal">
-              <a href="#" className="pure-menu-heading pure-menu-link">TODOIST CLONE</a>
+              <a href="#" className="pure-menu-heading pure-menu-link">Scoobert</a>
               <ul className="pure-menu-list">
                   <li className="pure-menu-item"><a href="#" className="pure-menu-link">Logout</a></li>
               </ul>
