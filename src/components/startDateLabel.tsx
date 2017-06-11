@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Theme from './theme';
 
 export interface Props {
-    dueDate?: Date;
+    startDate?: Date;
     now: Date;
     done: boolean;
 }
@@ -15,35 +15,33 @@ const getDaysBetween = function(now: Date, dueDate: Date): number {
     return Math.floor((msToStartOfDueDate - msToStartOfToday) / msInADay);
 };
 
-const getLabelText = function(now: Date, dueDate: Date, daysBetween: number): string {
-    if (daysBetween < 0) {
-        return 'Overdue';
-    } else if (daysBetween === 0) {
-        return 'Due Today';
+const getLabelText = function(now: Date, startDate: Date, daysBetween: number): string {
+    if (daysBetween <= 0) {
+        return 'Do Today';
     } else if (daysBetween === 1) {
-        return 'Due Tomorrow';
+        return 'Do Tomorrow';
     } else {
-        return 'Due ' + now.toLocaleDateString('en-US');
+        return 'Do ' + now.toLocaleDateString('en-US');
     }
 };
 
 export class Component extends React.Component<Props, {}> {
     render() {
-        let dueLabel = null;
+        let startLabel = null;
 
-        if (!this.props.done && this.props.dueDate) {     
+        if (!this.props.done && this.props.startDate) {     
 
-            const days = getDaysBetween(this.props.now, this.props.dueDate as Date);
-            const urgent = days <= 1;    
+            const days = getDaysBetween(this.props.now, this.props.startDate as Date);
+            const urgent = days <= 0;    
             const style = 
                 urgent ? 
                 Theme.highPriorityLabelStyle : 
                 Theme.normalPriorityLabelStyle;
         
-            const text = getLabelText(this.props.now, this.props.dueDate as Date, days);
-            dueLabel = <span className="item-label" style={style}>{text}</span>;
+            const text = getLabelText(this.props.now, this.props.startDate as Date, days);
+            startLabel = <span className="item-label" style={style}>{text}</span>;
         }
 
-        return dueLabel;
+        return startLabel;
     }
 }
