@@ -1,5 +1,42 @@
 import * as React from 'react';
 import './App.css';
+import * as TaskListItem from './components/taskListItem';
+
+const taskProps: TaskListItem.Props = {
+    task: {
+        taskID: '69131103-9120-4c25-b180-77b7df551fc9',
+        projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+        title: 'Learn everything or else!',
+        state: 'Not Started',
+        dueDate: new Date()
+
+    },
+    projectStates: [ 'Not Started', 'In Progress', 'Done'],
+    now: new Date()
+};
+
+const taskProps2: TaskListItem.Props = {
+    task: {
+        taskID: '69131103-9120-4c25-b180-77b7df551fc1',
+        projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+        title: 'Eat cake!',
+        state: 'Done'
+    },
+    projectStates: [ 'Not Started', 'In Progress', 'Done'],
+    now: new Date()
+};
+
+const taskProps3: TaskListItem.Props = {
+    task: {
+        taskID: '69131103-9120-4c25-b180-77b7df551fcr',
+        projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+        title: 'Get Fat!',
+        state: 'In Progress'
+    },
+    projectStates: [ 'Not Started', 'In Progress', 'Done'],
+    now: new Date()
+
+};
 
 class App extends React.Component<{}, null> {
   render() {
@@ -28,11 +65,16 @@ class App extends React.Component<{}, null> {
             <div className="pure-u-1-3 centercontent">
 
                 <h2> React Practice </h2>
+                
+                <TaskListItem.TaskListItemComponent {...taskProps}/>
+                <TaskListItem.TaskListItemComponent {...taskProps2}/>
+                <TaskListItem.TaskListItemComponent {...taskProps3}/>
 
                 <div className="todo-item">
                     Basic user creation
                     <span className="item-label medium-priority">In Progress</span>
                 </div>
+                
                 <div className="todo-item todo-indent-2 done-todo-item">
                     Create sign up page
                     <span className="item-label done-label">Done</span>
