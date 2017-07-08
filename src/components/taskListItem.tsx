@@ -25,7 +25,6 @@ export const calcDiffInDays = (date1: Date, date2: Date): number => {
 
 export const Component: React.SFC<Props> = (props) => {
 
-    // const taskInInitialState = props.task.state === props.projectStates[0];
     const taskInFinalState = props.task.state === props.projectStates[props.projectStates.length - 1];          
 
     let textStyle;
@@ -52,7 +51,6 @@ export const Component: React.SFC<Props> = (props) => {
                 dueDate={props.task.dueDate}
                 now={props.now}
                 done={taskInFinalState}/>
-
         </div>
     );
 };
