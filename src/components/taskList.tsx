@@ -26,7 +26,8 @@ export const Component: React.SFC<Props> = (props) => {
                         task={task}
                         now={props.now}
                         projectStates={props.projectStates}
-                        key={task.taskID} />
+                        key={task.taskID} 
+                    />
                 );
             })} 
         </div>
