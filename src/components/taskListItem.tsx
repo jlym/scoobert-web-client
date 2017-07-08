@@ -46,11 +46,13 @@ export const Component: React.SFC<Props> = (props) => {
             <StartDateLabel.Component 
                 startDate={props.task.startWorkDate}
                 now={props.now}
-                done={taskInFinalState}/>
+                done={taskInFinalState}
+            />
             <DueDateLabel.Component 
                 dueDate={props.task.dueDate}
                 now={props.now}
-                done={taskInFinalState}/>
+                done={taskInFinalState}
+            />
         </div>
     );
 };

@@ -34,7 +34,7 @@ const taskListProps: TaskList.Props = {
     projectStates: [ 'Not Started', 'In Progress', 'Done']
 };
 
-class App extends React.Component<{}, null> {
+class App extends React.Component<{}, {}> {
   render() {
     return (
       <div className="app">
