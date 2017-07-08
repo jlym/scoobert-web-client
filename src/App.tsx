@@ -1,50 +1,37 @@
 import * as React from 'react';
 import './App.css';
-import * as TaskListItem from './components/taskListItem';
+import * as TaskList from './components/taskList';
 
 const today = new Date(2017, 2, 12);
 const tomorrow = new Date(2017, 2, 13);
-// const yesterday = new Date(2017, 2, 12);
 const nextWeek = new Date(2017, 2, 19);
 
-const taskProps: TaskListItem.Props = {
-    task: {
-        taskID: '69131103-9120-4c25-b180-77b7df551fc9',
-        projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
-        title: 'Learn everything or else!',
-        state: 'Not Started',
-        dueDate: today,
-        startWorkDate: today,
-
-    },
-    projectStates: [ 'Not Started', 'In Progress', 'Done'],
-    now: today
-};
-
-const taskProps2: TaskListItem.Props = {
-    task: {
-        taskID: '69131103-9120-4c25-b180-77b7df551fc1',
-        projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
-        title: 'Eat cake!',
-        state: 'Done',
-        startWorkDate: today,
-    },
-    projectStates: [ 'Not Started', 'In Progress', 'Done'],
-    now: today
-};
-
-const taskProps3: TaskListItem.Props = {
-    task: {
-        taskID: '69131103-9120-4c25-b180-77b7df551fcr',
-        projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
-        title: 'Get Fat!',
-        state: 'In Progress',
-        startWorkDate: tomorrow,
-        dueDate: nextWeek
-    },
-    projectStates: [ 'Not Started', 'In Progress', 'Done'],
-    now: today
-
+const taskListProps: TaskList.Props = {
+    now: today,
+    tasks: [
+        {
+            taskID: '69131103-9120-4c25-b180-77b7df551fc9',
+            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+            title: 'Learn everything or else!',
+            state: 'Not Started',
+            dueDate: today,
+            startWorkDate: today,
+        }, {
+            taskID: '69131103-9120-4c25-b180-77b7df551fc1',
+            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+            title: 'Eat cake!',
+            state: 'Done',
+            startWorkDate: today,
+        }, {
+            taskID: '69131103-9120-4c25-b180-77b7df551fcr',
+            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+            title: 'Get Fat!',
+            state: 'In Progress',
+            startWorkDate: tomorrow,
+            dueDate: nextWeek
+        }
+    ],
+    projectStates: [ 'Not Started', 'In Progress', 'Done']
 };
 
 class App extends React.Component<{}, null> {
@@ -75,9 +62,7 @@ class App extends React.Component<{}, null> {
 
                 <h2> React Practice </h2>
                 
-                <TaskListItem.Component {...taskProps}/>
-                <TaskListItem.Component {...taskProps2}/>
-                <TaskListItem.Component {...taskProps3}/>
+                <TaskList.Component {...taskListProps}/>
 
                 <form className="pure-form pure-form-aligned">
                     <fieldset>
