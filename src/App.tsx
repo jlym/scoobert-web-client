@@ -1,12 +1,45 @@
 import * as React from 'react';
 import './App.css';
+import * as TaskList from './components/taskList';
 
-class App extends React.Component<{}, null> {
+const today = new Date(2017, 2, 12);
+const tomorrow = new Date(2017, 2, 13);
+const nextWeek = new Date(2017, 2, 19);
+
+const taskListProps: TaskList.Props = {
+    now: today,
+    tasks: [
+        {
+            taskID: '69131103-9120-4c25-b180-77b7df551fc9',
+            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+            title: 'Learn everything or else!',
+            state: 'Not Started',
+            dueDate: today,
+            startWorkDate: today,
+        }, {
+            taskID: '69131103-9120-4c25-b180-77b7df551fc1',
+            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+            title: 'Eat cake!',
+            state: 'Done',
+            startWorkDate: today,
+        }, {
+            taskID: '69131103-9120-4c25-b180-77b7df551fcr',
+            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
+            title: 'Get Fat!',
+            state: 'In Progress',
+            startWorkDate: tomorrow,
+            dueDate: nextWeek
+        }
+    ],
+    projectStates: [ 'Not Started', 'In Progress', 'Done']
+};
+
+class App extends React.Component<{}, {}> {
   render() {
     return (
       <div className="app">
           <nav className="pure-menu pure-menu-horizontal">
-              <a href="#" className="pure-menu-heading pure-menu-link">TODOIST CLONE</a>
+              <a href="#" className="pure-menu-heading pure-menu-link">Scoobert</a>
               <ul className="pure-menu-list">
                   <li className="pure-menu-item"><a href="#" className="pure-menu-link">Logout</a></li>
               </ul>
@@ -28,54 +61,10 @@ class App extends React.Component<{}, null> {
             <div className="pure-u-1-3 centercontent">
 
                 <h2> React Practice </h2>
+                
+                <TaskList.Component {...taskListProps}/>
 
-                <div className="todo-item">
-                    Basic user creation
-                    <span className="item-label medium-priority">In Progress</span>
-                </div>
-                <div className="todo-item todo-indent-2 done-todo-item">
-                    Create sign up page
-                    <span className="item-label done-label">Done</span>
-                    <span className="item-label done-label">Do Tomorrow</span>
-                </div>
-                <div className="todo-item todo-indent-2">
-                    Create a database to store users
-                    <span className="item-label medium-priority">In Progress</span>
-                    <span className="item-label high-priority">Do Today</span>
-                </div>
-                <div className="todo-item todo-indent-2">
-                    Create controller
-                    <span className="item-label low-priority">Not started</span>
-                    <span className="item-label high-priority">Do Today</span>
-                    <span className="item-label low-priority">Due Friday</span>
-                </div>
-
-                <div className="todo-item">
-                    All the Lorem Ipsum generators on the Internet tend to repeat 
-                    predefined chunks as necessary, making this the first true generator on
-                    <span className="item-label medium-priority">In Progress</span>
-                </div>
-                <div className="todo-item todo-indent-2 done-todo-item">
-                    Create sign up page
-                    <span className="item-label done-label">Done</span>
-                    <span className="item-label done-label">Do Tomorrow</span>
-                </div>
-                <div className="todo-item todo-indent-2">
-                    There are many variations of passages of Lorem Ipsum available, 
-                    but the majority have suffered alteration in some form, by injected 
-                    humour, or randomised words which don't look even slightly 
-                    believable. If you are going to use a passage of Lorem Ipsum
-                    <span className="item-label medium-priority">In Progress</span>
-                    <span className="item-label high-priority">Do Today</span>
-                </div>
-                <div className="todo-item todo-indent-2">
-                    Create controller
-                    <span className="item-label low-priority">Not started</span>
-                    <span className="item-label high-priority">Do Today</span>
-                    <span className="item-label low-priority">Due Friday</span>
-                </div>
-
-                <form className="pure-form pure-form-aligned todo-indent-2">
+                <form className="pure-form pure-form-aligned">
                     <fieldset>
                         
                         <legend>Edit Task</legend>
