@@ -1,13 +1,13 @@
-import * as React from 'react';
-import * as TaskListItem from './taskListItem';
+import * as React from "react";
+import * as TaskListItem from "./taskListItem";
 
-export interface Props {
-    tasks: Task[];
+export interface IProps {
+    tasks: ITask[];
     projectStates: string[];
     now: Date;
 }
 
-export interface Task {
+export interface ITask {
     taskID: string;
     projectID: string;
     title: string;
@@ -16,20 +16,22 @@ export interface Task {
     dueDate?: Date;
 }
 
-export const Component: React.SFC<Props> = (props) => {
+const GetTaskListItem = (props: IProps, task: ITask) => {
+    return (
+        <TaskListItem.Component
+            task={task}
+            now={props.now}
+            projectStates={props.projectStates}
+            key={task.taskID}
+        />
+    );
+};
+
+export const Component: React.SFC<IProps> = (props) => {
 
     return (
         <div>
-            {props.tasks.map(function(task: Task, i: number){
-                return (
-                    <TaskListItem.Component
-                        task={task}
-                        now={props.now}
-                        projectStates={props.projectStates}
-                        key={task.taskID} 
-                    />
-                );
-            })} 
+            {props.tasks.map((task: ITask, i: number) => GetTaskListItem(props, task))}
         </div>
     );
 };

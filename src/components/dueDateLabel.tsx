@@ -1,13 +1,13 @@
-import * as React from 'react';
-import * as Theme from './theme';
+import * as React from "react";
+import * as Theme from "./theme";
 
-export interface Props {
+export interface IProps {
     dueDate?: Date;
     now: Date;
     done: boolean;
 }
 
-const getDaysBetween = function(now: Date, dueDate: Date): number {
+const getDaysBetween = (now: Date, dueDate: Date): number => {
     const msToStartOfToday = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
     const msToStartOfDueDate = Date.UTC(dueDate.getFullYear(), dueDate.getMonth(), dueDate.getDate());
 
@@ -15,31 +15,31 @@ const getDaysBetween = function(now: Date, dueDate: Date): number {
     return Math.floor((msToStartOfDueDate - msToStartOfToday) / msInADay);
 };
 
-const getLabelText = function(now: Date, dueDate: Date, daysBetween: number): string {
+const getLabelText = (now: Date, dueDate: Date, daysBetween: number): string => {
     if (daysBetween < 0) {
-        return 'Overdue';
+        return "Overdue";
     } else if (daysBetween === 0) {
-        return 'Due Today';
+        return "Due Today";
     } else if (daysBetween === 1) {
-        return 'Due Tomorrow';
+        return "Due Tomorrow";
     } else {
-        return 'Due ' + now.toLocaleDateString('en-US');
+        return "Due " + now.toLocaleDateString("en-US");
     }
 };
 
-export class Component extends React.Component<Props, {}> {
-    render() {
+export class Component extends React.Component<IProps, {}> {
+    public render() {
         let dueLabel = null;
 
-        if (!this.props.done && this.props.dueDate) {     
+        if (!this.props.done && this.props.dueDate) {
 
             const days = getDaysBetween(this.props.now, this.props.dueDate as Date);
-            const urgent = days <= 1;    
-            const style = 
-                urgent ? 
-                Theme.highPriorityLabelStyle : 
+            const urgent = days <= 1;
+            const style =
+                urgent ?
+                Theme.highPriorityLabelStyle :
                 Theme.normalPriorityLabelStyle;
-        
+
             const text = getLabelText(this.props.now, this.props.dueDate as Date, days);
             dueLabel = <span className="item-label" style={style}>{text}</span>;
         }

@@ -1,13 +1,12 @@
-import * as React from 'react';
-import * as TaskListItem from './taskListItem';
+import * as React from "react";
 
-export interface Props {
-    task: Task;
+export interface IProps {
+    task: ITask;
     projectStates: string[];
     now: Date;
 }
 
-export interface Task {
+export interface ITask {
     taskID: string;
     projectID: string;
     title: string;
@@ -16,35 +15,31 @@ export interface Task {
     dueDate?: Date;
 }
 
-export const Component: React.SFC<Props> = (props) => {
+export const Component: React.SFC<IProps> = (props) => {
 
     return (
         <div>
             <form className="pure-form pure-form-aligned">
                 <fieldset>
-                    
+
                     <legend>Edit Task</legend>
 
                     <div className="pure-control-group">
                         <label htmlFor="desc-text-area">Description</label>
-                        <input type="text" placeholder="Task description"> 
-                            {{props.task.title}}
-                        </input> 
+                        <input type="text" placeholder="Task description">
+                            {props.task.title}
+                        </input>
                     </div>
 
                     <div className="pure-control-group">
                         <label htmlFor="state">State</label>
                         <select id="state">
-                            {props.projectStates.map(function(state: string, i: number){
-                                return (
-                                    <option>{{state}}</option>
-                                );
-                            })} 
+                            {props.projectStates.map((state: string, i: number) => (<option>{state}</option>) )}
                         </select>
                     </div>
 
                     <div className="pure-control-group">
-                        <label htmlFor="due-field">Due</label> 
+                        <label htmlFor="due-field">Due</label>
                         <input id="due-field" type="date"/>
                     </div>
 

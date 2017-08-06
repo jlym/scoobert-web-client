@@ -1,18 +1,18 @@
-import { Action } from './reducer';
-import * as store from '../store';
+import * as store from "../store";
+import { IAction } from "./reducer";
 
-export const ADD_TASK = 'ADD_TASK';
-export const REMOVE_TASK = 'REMOVE_TASK';
-export const UPDATE_TASK = 'UPDATE_TASK';
+export const ADD_TASK = "ADD_TASK";
+export const REMOVE_TASK = "REMOVE_TASK";
+export const UPDATE_TASK = "UPDATE_TASK";
 
 // Action creators
 
-export interface AddTaskAction extends Action {
-    data: AddTaskData;
+export interface IAddTaskAction extends IAction {
+    data: IAddTaskData;
     projectID: string;
 }
 
-export interface AddTaskData {
+export interface IAddTaskData {
     createdAt: Date;
     lastUpdated: Date;
     title: string;
@@ -21,67 +21,67 @@ export interface AddTaskData {
     dueDate: Date;
 }
 
-export function addTaskAction(data: AddTaskData, projectID: string): AddTaskAction {
+export function addTaskAction(data: IAddTaskData, projectID: string): IAddTaskAction {
     return {
-        type: ADD_TASK,        
-        data: data,
-        projectID: projectID
+        data,
+        projectID,
+        type: ADD_TASK,
     };
 }
 
-export interface RemoveTaskAction extends Action {
+export interface IRemoveTaskAction extends IAction {
     todoItemID: string;
 }
 
-export function removeTaskAction(taskID: string): RemoveTaskAction {
+export function removeTaskAction(taskID: string): IRemoveTaskAction {
     return {
+        todoItemID: taskID,
         type: REMOVE_TASK,
-        todoItemID: taskID
     };
 }
 
-export interface UpdateTaskAction extends Action {
-    todoItem: store.TodoItem;
+export interface IUpdateTaskAction extends IAction {
+    todoItem: store.ITodoItem;
 }
 
-export function updateTaskAction(task: store.TodoItem): UpdateTaskAction {
+export function updateTaskAction(task: store.ITodoItem): IUpdateTaskAction {
     return {
+        todoItem: task,
         type: UPDATE_TASK,
-        todoItem: task
     };
 }
 
 // Reducer
 
-export function reducer(state: store.StoreState = store.getInitialState(), action: Action): store.StoreState {
+export function reducer(state: store.IStoreState = store.getInitialState(), action: IAction): store.IStoreState {
     switch (action.type) {
         case ADD_TASK:
-            return reduceAddTask(state, action as AddTaskAction);
+            return reduceAddTask(state, action as IAddTaskAction);
         case REMOVE_TASK:
-            return reduceRemoveTask(state, action as RemoveTaskAction);
+            return reduceRemoveTask(state, action as IRemoveTaskAction);
         case UPDATE_TASK:
-            return reduceUpdateTask(state, action as UpdateTaskAction);
+            return reduceUpdateTask(state, action as IUpdateTaskAction);
         default:
             return state;
     }
 }
 
-function reduceAddTask(state: store.StoreState, action: AddTaskAction): store.StoreState {
+function reduceAddTask(state: store.IStoreState, action: IAddTaskAction): store.IStoreState {
 
-    const todoItem: store.TodoItem = {...action.data, id: newUUID(), projectID: action.projectID};   
+    const todoItem: store.ITodoItem = {...action.data, id: newUUID(), projectID: action.projectID};
 
-    const project: store.Project = state.projects.get(todoItem.projectID) as store.Project;
+    const project: store.IProject = state.projects.get(todoItem.projectID) as store.IProject;
     const newTaskIDs = project.todoItemIDs.push(todoItem.id);
-    const newProject: store.Project = Object.assign({}, project, { todoItemIDs: newTaskIDs });
+    const newProject: store.IProject = Object.assign({}, project, { todoItemIDs: newTaskIDs });
 
     return {
-        ...state, 
+        ...state,
         projects: state.projects.set(project.id, newProject),
-        todoItems: state.todoItems.set(todoItem.id, todoItem)
+        todoItems: state.todoItems.set(todoItem.id, todoItem),
     };
 }
 
-function reduceRemoveTask(state: store.StoreState, action: RemoveTaskAction): store.StoreState {
+function reduceRemoveTask(state: store.IStoreState, action: IRemoveTaskAction): store.IStoreState {
 
     const todoID = action.todoItemID;
 
@@ -99,17 +99,17 @@ function reduceRemoveTask(state: store.StoreState, action: RemoveTaskAction): st
         if (todoItemIndex !== -1) {
             const newProject = {...project, todoItemIDs: project.todoItemIDs.delete(todoItemIndex)};
             newProjects = newProjects.set(project.id, newProject);
-        }        
+        }
     }
-            
+
     return {
-        ...state, 
+        ...state,
         projects: newProjects,
-        todoItems: state.todoItems.deleteIn([todoID])
+        todoItems: state.todoItems.deleteIn([todoID]),
     };
 }
 
-function reduceUpdateTask(state: store.StoreState, action: UpdateTaskAction): store.StoreState {
+function reduceUpdateTask(state: store.IStoreState, action: IUpdateTaskAction): store.IStoreState {
     const todoID = action.todoItem.id;
     if (!state.todoItems.has(todoID)) {
         return state;
@@ -117,11 +117,11 @@ function reduceUpdateTask(state: store.StoreState, action: UpdateTaskAction): st
 
     return {
         ...state,
-        todoItems:  state.todoItems.set(todoID, action.todoItem)
-    };    
+        todoItems:  state.todoItems.set(todoID, action.todoItem),
+    };
 }
 
-var todoIDs: number = 0;
+let todoIDs: number = 0;
 
 function newUUID() {
     todoIDs++;

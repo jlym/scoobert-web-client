@@ -1,16 +1,16 @@
-import * as React from 'react';
-import * as StateLabel from './stateLabel';
-import * as DueDateLabel from './dueDateLabel';
-import * as StartDateLabel from './startDateLabel';
-import * as Theme from './theme';
+import * as React from "react";
+import * as DueDateLabel from "./dueDateLabel";
+import * as StartDateLabel from "./startDateLabel";
+import * as StateLabel from "./stateLabel";
+import * as Theme from "./theme";
 
-export interface Props {
-    task: Task;
+export interface IProps {
+    task: ITask;
     projectStates: string[];
     now: Date;
 }
 
-export interface Task {
+export interface ITask {
     taskID: string;
     projectID: string;
     title: string;
@@ -23,32 +23,32 @@ export const calcDiffInDays = (date1: Date, date2: Date): number => {
     return Math.floor((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
 };
 
-export const Component: React.SFC<Props> = (props) => {
+export const Component: React.SFC<IProps> = (props) => {
 
-    const taskInFinalState = props.task.state === props.projectStates[props.projectStates.length - 1];          
+    const taskInFinalState = props.task.state === props.projectStates[props.projectStates.length - 1];
 
     let textStyle;
     if (taskInFinalState) {
         textStyle = {
             color: Theme.lowPriorityTextColor,
-            textDecoration: 'line-through'
+            textDecoration: "line-through",
         };
     } else {
         textStyle = {
-            color: Theme.normalPriorityTextColor
+            color: Theme.normalPriorityTextColor,
         };
     }
-    
+
     return (
         <div className="todo-item" style={textStyle}>
             {props.task.title}
             <StateLabel.Component {...props}/>
-            <StartDateLabel.Component 
+            <StartDateLabel.Component
                 startDate={props.task.startWorkDate}
                 now={props.now}
                 done={taskInFinalState}
             />
-            <DueDateLabel.Component 
+            <DueDateLabel.Component
                 dueDate={props.task.dueDate}
                 now={props.now}
                 done={taskInFinalState}

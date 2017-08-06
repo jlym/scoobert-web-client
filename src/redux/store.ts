@@ -1,13 +1,14 @@
-///<reference path='../../node_modules/immutable/dist/immutable.d.ts'/> 
+/* tslint:disable:no-reference */
+///<reference path="../../node_modules/immutable/dist/immutable.d.ts"/>
 
-import { List, Map } from 'immutable';
+import { List, Map } from "immutable";
 
-export interface StoreState {
-    projects: Map<string, Project>;
-    todoItems: Map<string, TodoItem>;
+export interface IStoreState {
+    projects: Map<string, IProject>;
+    todoItems: Map<string, ITodoItem>;
 }
 
-export interface Project {
+export interface IProject {
     id: string;
     name: string;
     states: List<string>;
@@ -16,7 +17,7 @@ export interface Project {
     todoItemIDs: List<string>;
 }
 
-export interface TodoItem {
+export interface ITodoItem {
     id: string;
     projectID: string;
     createdAt: Date;
@@ -27,18 +28,18 @@ export interface TodoItem {
     dueDate: Date;
 }
 
-export function getInitialState(): StoreState {
-    const project: Project = {
-        id: 'a0300525-dbfb-485c-af54-727948e664e8',
-        name: 'default',
-        states: List<string>(['Not Started', 'In Progress', 'Blocked', 'Done']),
-        startingState: 'Not Started',
-        endingState: 'Done',
-        todoItemIDs:  List<string>()
+export function getInitialState(): IStoreState {
+    const project: IProject = {
+        endingState: "Done",
+        id: "a0300525-dbfb-485c-af54-727948e664e8",
+        name: "default",
+        startingState: "Not Started",
+        states: List<string>(["Not Started", "In Progress", "Blocked", "Done"]),
+        todoItemIDs:  List<string>(),
     };
 
     return {
-        projects: Map<string, Project>({[project.id]: project}),
-        todoItems: Map<string, TodoItem>()
+        projects: Map<string, IProject>({[project.id]: project}),
+        todoItems: Map<string, ITodoItem>(),
     };
 }
