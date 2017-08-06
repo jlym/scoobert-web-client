@@ -1,13 +1,13 @@
-import * as React from 'react';
-import * as Theme from './theme';
+import * as React from "react";
+import * as Theme from "./theme";
 
-export interface Props {
-    task: Task;
+export interface IProps {
+    task: ITask;
     projectStates: string[];
     now: Date;
 }
 
-export interface Task {
+export interface ITask {
     taskID: string;
     projectID: string;
     title: string;
@@ -16,8 +16,8 @@ export interface Task {
     dueDate?: Date;
 }
 
-export class Component extends React.Component<Props, {}> {
-    render() {
+export class Component extends React.Component<IProps, {}> {
+    public render() {
         const isFirstState = this.props.task.state === this.props.projectStates[0];
         const isFinalState = this.props.task.state === this.props.projectStates[this.props.projectStates.length - 1];
 

@@ -1,41 +1,41 @@
-import * as React from 'react';
-import './App.css';
-import * as TaskList from './components/taskList';
+import * as React from "react";
+import "./App.css";
+import * as TaskList from "./components/taskList";
 
 const today = new Date(2017, 2, 12);
 const tomorrow = new Date(2017, 2, 13);
 const nextWeek = new Date(2017, 2, 19);
 
-const taskListProps: TaskList.Props = {
+const taskListProps: TaskList.IProps = {
     now: today,
+    projectStates: [ "Not Started", "In Progress", "Done"],
     tasks: [
         {
-            taskID: '69131103-9120-4c25-b180-77b7df551fc9',
-            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
-            title: 'Learn everything or else!',
-            state: 'Not Started',
             dueDate: today,
+            projectID: "96dff136-b87f-4cfd-a874-cdc32726bf79",
             startWorkDate: today,
+            state: "Not Started",
+            taskID: "69131103-9120-4c25-b180-77b7df551fc9",
+            title: "Learn everything or else!",
         }, {
-            taskID: '69131103-9120-4c25-b180-77b7df551fc1',
-            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
-            title: 'Eat cake!',
-            state: 'Done',
+            projectID: "96dff136-b87f-4cfd-a874-cdc32726bf79",
             startWorkDate: today,
+            state: "Done",
+            taskID: "69131103-9120-4c25-b180-77b7df551fc1",
+            title: "Eat cake!",
         }, {
-            taskID: '69131103-9120-4c25-b180-77b7df551fcr',
-            projectID: '96dff136-b87f-4cfd-a874-cdc32726bf79',
-            title: 'Get Fat!',
-            state: 'In Progress',
+            dueDate: nextWeek,
+            projectID: "96dff136-b87f-4cfd-a874-cdc32726bf79",
             startWorkDate: tomorrow,
-            dueDate: nextWeek
-        }
+            state: "In Progress",
+            taskID: "69131103-9120-4c25-b180-77b7df551fcr",
+            title: "Get Fat!",
+        },
     ],
-    projectStates: [ 'Not Started', 'In Progress', 'Done']
 };
 
 class App extends React.Component<{}, {}> {
-  render() {
+  public render() {
     return (
       <div className="app">
           <nav className="pure-menu pure-menu-horizontal">
@@ -61,17 +61,17 @@ class App extends React.Component<{}, {}> {
             <div className="pure-u-1-3 centercontent">
 
                 <h2> React Practice </h2>
-                
+
                 <TaskList.Component {...taskListProps}/>
 
                 <form className="pure-form pure-form-aligned">
                     <fieldset>
-                        
+
                         <legend>Edit Task</legend>
 
                         <div className="pure-control-group">
                             <label htmlFor="desc-text-area">Description</label>
-                            <input type="text" placeholder="Task description"/>                        
+                            <input type="text" placeholder="Task description"/>
                         </div>
 
                         <div className="pure-control-group">
@@ -85,7 +85,7 @@ class App extends React.Component<{}, {}> {
                         </div>
 
                         <div className="pure-control-group">
-                            <label htmlFor="due-field">Due</label> 
+                            <label htmlFor="due-field">Due</label>
                             <input id="due-field" type="date"/>
                         </div>
 

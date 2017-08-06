@@ -1,28 +1,53 @@
 {
-  "name": "todo2",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@types/jest": "^19.2.3",
-    "@types/node": "^7.0.18",
-    "@types/react": "^15.0.24",
-    "@types/react-dom": "^15.5.0",
-    "@types/react-redux": "^4.4.40",
-    "immutable": "^3.8.1",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+  "name": "scoobert-web-client",
+  "version": "1.0.0",
+  "main": "App.tsx",
+  "repository": "git@github.com:jlym/scoobert-web-client.git",
+  "author": "Jeffrey Lym <jeffreyalym@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server --progress --content-base dist/",
+    "build": "webpack",
+    "test": "jest",
+    "lint": "node_modules/.bin/tslint -c tslint.json src/**/*.{ts,tsx}",
+    "fix": "node_modules/.bin/tslint --fix -c tslint.json src/**/*.{ts,tsx}"    
   },
   "devDependencies": {
-    "react-scripts-ts": "2.3.2",
-    "tslint": "^5.5.0"
+    "@types/jest": "^20.0.6",
+    "@types/react": "^16.0.0",
+    "@types/react-dom": "^15.5.2",
+    "css-loader": "^0.28.4",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "^20.0.4",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "ts-jest": "^20.0.9",
+    "ts-loader": "^2.3.2",
+    "tslint": "^5.5.0",
+    "tslint-react": "^3.2.0",
+    "typescript": "^2.4.2",
+    "webpack": "^3.4.1",
+    "webpack-dev-server": "^2.6.1"
   },
-  "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "lint": "tslint --config tslint.json --project tsconfig.json --type-check"
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/jest_config/styleMock.js"
+    }
   }
 }
