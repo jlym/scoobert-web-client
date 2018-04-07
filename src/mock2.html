@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="mock2.css">
+    <title>React App</title>
+  </head>
+  <body>
+
+    <header>
+        <a href="#"> Scoobert</a>
+        <ul>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </header>
+
+    <nav class="left-nav">
+        <h1>Projects</h1>
+
+        <ul>
+            <li><a href="#">App</a></li>
+            <li><a href="#">React Practice</a></li>
+            <li><a href="#">Meal Reviews</a></li>
+            <li><a href="#">Add Project</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>React Practice</h1>
+
+        <div class="todo-item2">
+            <div class="todo-icon">
+                <svg class="in-progress-icon" enable-background="new 0 0 561 561" version="1.1" viewBox="0 0 561 561" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m280.5 76.5v-76.5l-102 102 102 102v-76.5c84.15 0 153 68.85 153 153 0 25.5-7.65 51-17.85 71.4l38.25 38.25c17.85-33.15 30.6-68.85 30.6-109.65 0-112.2-91.8-204-204-204zm0 357c-84.15 0-153-68.85-153-153 0-25.5 7.65-51 17.85-71.4l-38.25-38.25c-17.85 33.15-30.6 68.85-30.6 109.65 0 112.2 91.8 204 204 204v76.5l102-102-102-102v76.5z"/>
+                </svg>                
+            </div>
+            <div class="todo-desc">
+                Basic user creation
+                <span class="item-label medium-priority">In Progress</span>
+            </div>
+        </div>
+
+        <div class="todo-item todo-indent-2 done-todo-item">
+            Create sign up page
+            <span class="item-label done-label">Done</span>
+            <span class="item-label done-label">Do Tomorrow</span>
+        </div>
+        <div class="todo-item todo-indent-2">
+            Create a database to store users
+            <span class="item-label medium-priority">In Progress</span>
+            <span class="item-label high-priority">Do Today</span>
+        </div>
+        <div class="todo-item todo-indent-2">
+            Create controller
+            <span class="item-label low-priority">Not started</span>
+            <span class="item-label high-priority">Do Today</span>
+            <span class="item-label low-priority">Due Friday</span>
+        </div>
+
+        <div class="todo-item">
+            All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on
+            <span class="item-label medium-priority">In Progress</span>
+        </div>
+        <div class="todo-item todo-indent-2 done-todo-item">
+            Create sign up page
+            <span class="item-label done-label">Done</span>
+            <span class="item-label done-label">Do Tomorrow</span>
+        </div>
+        <div class="todo-item2 todo-indent-2">
+            <div class="todo-icon">
+                <svg class="in-progress-icon" enable-background="new 0 0 561 561" version="1.1" viewBox="0 0 561 561" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m280.5 76.5v-76.5l-102 102 102 102v-76.5c84.15 0 153 68.85 153 153 0 25.5-7.65 51-17.85 71.4l38.25 38.25c17.85-33.15 30.6-68.85 30.6-109.65 0-112.2-91.8-204-204-204zm0 357c-84.15 0-153-68.85-153-153 0-25.5 7.65-51 17.85-71.4l-38.25-38.25c-17.85 33.15-30.6 68.85-30.6 109.65 0 112.2 91.8 204 204 204v76.5l102-102-102-102v76.5z"/>
+                </svg>                
+            </div>
+
+            <div class="todo-desc">
+                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum
+                <span class="item-label medium-priority">In Progress</span>
+                <span class="item-label high-priority">Do Today</span>
+            </div>
+        </div>
+        <div class="todo-item todo-indent-2">
+            Create controller
+            <span class="item-label low-priority">Not started</span>
+            <span class="item-label high-priority">Do Today</span>
+            <span class="item-label low-priority">Due Friday</span>
+        </div>
+
+
+        <form class="pure-form pure-form-aligned todo-indent-2">
+            <fieldset>
+                
+                <legend>Edit Task</legend>
+
+                <div class="pure-control-group">
+                    <label for="desc-text-area">Description</label>
+                    <input type="text" placeholder="Task description">                        
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="state">State</label>
+                    <select id="state">
+                        <option>Not Started</option>
+                        <option>Blocked</option>
+                        <option>In Progress</option>
+                        <option>Done</option>
+                    </select>
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="due-field">Due</label> 
+                    <input id="due-field" type="date">
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="schedule-field">Schedule for</label>
+                    <input id="schedule-field" type="date">
+                </div>
+
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">OK</button>
+                    <button type="submit" class="pure-button">Cancel</button>
+                    <button type="submit" class="pure-button">Delete</button>
+                </div>
+            </fieldset>
+        </form>
+        <div class="button-panel">
+            <button class="pure-button">Add Task</button>
+        </div>
+    </main>
+
+
+  </body>
+
+  </html>
